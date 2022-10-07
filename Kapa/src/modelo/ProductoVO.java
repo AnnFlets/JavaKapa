@@ -1,5 +1,7 @@
 package modelo;
 
+import java.sql.Blob;
+
 public class ProductoVO {
     /**
      * Atributos de la clase
@@ -12,7 +14,7 @@ public class ProductoVO {
     private double precioCompraProducto;
     private double precioVentaProducto;
     private int existenciaProducto;
-    private String imgProducto;
+    private Blob imgProducto;
     private int idProveedor;
 
     /**
@@ -89,11 +91,11 @@ public class ProductoVO {
         this.existenciaProducto = existenciaProducto;
     }
 
-    public String getImgProducto() {
+    public Blob getImgProducto() {
         return imgProducto;
     }
 
-    public void setImgProducto(String imgProducto) {
+    public void setImgProducto(Blob imgProducto) {
         this.imgProducto = imgProducto;
     }
 
