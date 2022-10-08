@@ -3,6 +3,7 @@ package kapa;
 import controlador.ControladorCliente;
 import controlador.ControladorLogin;
 import controlador.ControladorMenu;
+import controlador.ControladorProducto;
 import controlador.ControladorProveedor;
 import controlador.ControladorVenta;
 import extras.Extras;
@@ -66,7 +67,7 @@ public class Kapa {
         ControladorProveedor cProveedor = new ControladorProveedor(vProveedor);
         ControladorCliente cCliente = new ControladorCliente(vCliente);
         ControladorVenta cVenta = new ControladorVenta(vVentas);
-
+        ControladorProducto cProducto = new ControladorProducto (vProducto);   
         /**
          * Extras
          */
