@@ -54,7 +54,7 @@ public class ControladorMenu implements ActionListener, WindowListener {
         this.vProducto.setVisible(true);
         this.vProducto.setLocationRelativeTo(null);
         this.vProducto.setResizable(false);
-        this.vProducto.setSize(700, 540);
+        //this.vProducto.setSize(700, 540);
     }
 
     private void abrirProveedores() {
@@ -68,7 +68,7 @@ public class ControladorMenu implements ActionListener, WindowListener {
         this.vCliente.setVisible(true);
         this.vCliente.setLocationRelativeTo(null);
         this.vCliente.setResizable(false);
-        this.vCliente.setSize(700, 540);
+        this.vCliente.setSize(1070, 645);
     }
 
     private void abrirVentas() {

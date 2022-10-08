@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ProveedorDAO;
@@ -30,6 +31,7 @@ public class ControladorProveedor implements ActionListener, WindowListener, Mou
     public ControladorProveedor(FrmProveedor vProveedor) {
         this.vProveedor = vProveedor;
         this.vProveedor.addWindowListener(this);
+        this.vProveedor.btnLimpiarProveedor.addActionListener(this);
         this.vProveedor.btnCrearProveedor.addActionListener(this);
         this.vProveedor.btnActualizarProveedor.addActionListener(this);
         this.vProveedor.btnEliminarProveedor.addActionListener(this);
@@ -81,29 +83,31 @@ public class ControladorProveedor implements ActionListener, WindowListener, Mou
 
     private boolean verificarProveedorDuplicado(int opcion) {
         boolean banderaProveedor = true;
-        int contador = 0;
-        for (ProveedorVO proveedor : prdao.consultarProveedor()) {
-            if (opcion == 1) {
+        if (opcion == 1) {
+            for (ProveedorVO proveedor : prdao.consultarProveedor()) {
                 if (proveedor.getNombreProveedor().equals(this.vProveedor.txtNombreProveedor.getText())
                         || proveedor.getTelefonoProveedor().equals(this.vProveedor.txtTelefonoProveedor.getText())) {
                     banderaProveedor = false;
                     this.vProveedor.jopMensajeProveedor.showMessageDialog(null, "Ya existe un proveedor con el mismo nombre y/o teléfono.",
                             "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    if (!this.vProveedor.txtIdProveedor.getText().isEmpty()) {
+                        limpiarCampos();
+                    }
                     break;
                 }
-            } else {
-                if (proveedor.getNombreProveedor().equals(this.vProveedor.txtNombreProveedor.getText())
-                        || proveedor.getTelefonoProveedor().equals(this.vProveedor.txtTelefonoProveedor.getText())) {
-                    System.out.println(this.vProveedor.tblProveedores.getSelectedRow());
-                    System.out.println(contador);
-                    if (contador != this.vProveedor.tblProveedores.getSelectedRow()) {
+            }
+        } else {
+            ArrayList<ProveedorVO> proveedor = prdao.consultarProveedor();
+            for (int i = 0; i < proveedor.size(); i++) {
+                if (proveedor.get(i).getNombreProveedor().equals(this.vProveedor.txtNombreProveedor.getText())
+                        || proveedor.get(i).getTelefonoProveedor().equals(this.vProveedor.txtTelefonoProveedor.getText())) {
+                    if (i != this.vProveedor.tblProveedores.getSelectedRow()) {
                         banderaProveedor = false;
                         this.vProveedor.jopMensajeProveedor.showMessageDialog(null, "Ya existe un proveedor con el mismo nombre y/o teléfono.",
                                 "Advertencia", JOptionPane.WARNING_MESSAGE);
                         limpiarCampos();
                         break;
                     }
-                    contador++;
                 }
             }
         }
@@ -149,7 +153,7 @@ public class ControladorProveedor implements ActionListener, WindowListener, Mou
                 }
             }
         } else {
-            this.vProveedor.jopMensajeProveedor.showMessageDialog(null, "No ha seleccionado ningún proveedor.",
+            this.vProveedor.jopMensajeProveedor.showMessageDialog(null, "No se aceptan campos vacíos.",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -186,6 +190,9 @@ public class ControladorProveedor implements ActionListener, WindowListener, Mou
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == this.vProveedor.btnLimpiarProveedor) {
+            limpiarCampos();
+        }
         if (ae.getSource() == this.vProveedor.btnCrearProveedor) {
             registrarProveedor();
         }
@@ -200,9 +207,7 @@ public class ControladorProveedor implements ActionListener, WindowListener, Mou
         }
         if (ae.getSource() == this.vProveedor.btnSalirProveedor) {
             this.vProveedor.dispose();
-            if (!this.vProveedor.txtIdProveedor.getText().isEmpty()) {
-                limpiarCampos();
-            }
+            limpiarCampos();
             if (banderaReporte) {
                 prdao.jasperViewer.setVisible(false);
             }
@@ -220,9 +225,7 @@ public class ControladorProveedor implements ActionListener, WindowListener, Mou
 
     @Override
     public void windowClosed(WindowEvent we) {
-        if (!this.vProveedor.txtIdProveedor.getText().isEmpty()) {
-            limpiarCampos();
-        }
+        limpiarCampos();
         if (banderaReporte) {
             prdao.jasperViewer.setVisible(false);
         }

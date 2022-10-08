@@ -44,6 +44,7 @@ public class ControladorVenta implements ActionListener, WindowListener, MouseLi
         this.vVentas = vVentas;
         this.vVentas.addWindowListener(this);
         this.vVentas.tblVentas.addMouseListener(this);
+        this.vVentas.lblLimpiarVentas.addMouseListener(this);
         this.vVentas.lblReportesVentas.addMouseListener(this);
         this.vVentas.lblSalirVentas.addMouseListener(this);
         this.vVentas.btnAceptarVentas.addActionListener(this);
@@ -271,6 +272,10 @@ public class ControladorVenta implements ActionListener, WindowListener, MouseLi
                 llenarCamposVenta();
                 mostrarDetalleVenta();
             }
+        }
+        if (me.getSource() == this.vVentas.lblLimpiarVentas) {
+            limpiarCampos();
+            limpiarTablaDetalles();
         }
         if (me.getSource() == this.vVentas.lblReportesVentas) {
             reporteVentas();

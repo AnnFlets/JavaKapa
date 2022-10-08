@@ -29,6 +29,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         jopMensajeProveedor = new javax.swing.JOptionPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnLimpiarProveedor = new javax.swing.JButton();
         txtIdProveedor = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -69,6 +70,10 @@ public class FrmProveedor extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ID");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 40, -1));
+
+        btnLimpiarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_limpiarcampos.png"))); // NOI18N
+        btnLimpiarProveedor.setToolTipText("Limpiar campos");
+        getContentPane().add(btnLimpiarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 40, 30));
 
         txtIdProveedor.setEditable(false);
         txtIdProveedor.setBackground(new java.awt.Color(169, 234, 255));
@@ -126,19 +131,19 @@ public class FrmProveedor extends javax.swing.JFrame {
 
         btnCrearProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_1crear.png"))); // NOI18N
         btnCrearProveedor.setToolTipText("Crear (debe tener los campos llenos)");
-        getContentPane().add(btnCrearProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 40, 30));
+        getContentPane().add(btnCrearProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 40, 30));
 
         btnActualizarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_2actulizar.png"))); // NOI18N
         btnActualizarProveedor.setToolTipText("Actualizar (debe tener algún registro seleccionado)");
-        getContentPane().add(btnActualizarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 40, 30));
+        getContentPane().add(btnActualizarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 40, 30));
 
         btnEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_3eliminar.png"))); // NOI18N
         btnEliminarProveedor.setToolTipText("Eliminar (debe tener algún registro seleccionado)");
-        getContentPane().add(btnEliminarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 40, 30));
+        getContentPane().add(btnEliminarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 40, 30));
 
         btnReporteProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_5reporte.png"))); // NOI18N
         btnReporteProveedor.setToolTipText("Crear un reporte (Con los registros mostrados)");
-        getContentPane().add(btnReporteProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 40, 30));
+        getContentPane().add(btnReporteProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 40, 30));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondoLogin.png"))); // NOI18N
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 160));
@@ -217,6 +222,7 @@ public class FrmProveedor extends javax.swing.JFrame {
     public javax.swing.JButton btnActualizarProveedor;
     public javax.swing.JButton btnCrearProveedor;
     public javax.swing.JButton btnEliminarProveedor;
+    public javax.swing.JButton btnLimpiarProveedor;
     public javax.swing.JButton btnReporteProveedor;
     public javax.swing.JButton btnSalirProveedor;
     private javax.swing.JLabel jLabel1;
