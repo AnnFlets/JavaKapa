@@ -4,13 +4,20 @@ import conexion.Conector;
 import extras.Extras;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ProductoDAO implements ConsultarProducto {
 
     ErrorVO evo = new ErrorVO();
     ErrorDAO edao = new ErrorDAO();
     Extras extras = new Extras();
-
+    public JasperViewer jasperViewer;
+    
+    
     @Override
     public boolean insertarProducto(ProductoVO pvo) {
       Conector c = new Conector();
@@ -144,11 +151,26 @@ public class ProductoDAO implements ConsultarProducto {
     @Override
     public void reporteProducto() {
 
+        Conector conector = new Conector();
+        try {
+            conector.conectar();
+            JasperReport reporteProductos;
+            String ruta = "/reportes/ReporteProductos.jasper";
+            reporteProductos = (JasperReport) JRLoader.loadObject(getClass().getResource(ruta));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporteProductos, null, conector.connection);
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            this.jasperViewer = jasperViewer;
+        } catch (Exception e) {
+            evo.setDescripcionError("[Reporte-Productos]: " + e.getMessage());
+            evo.setFechaError(extras.devolverFechaActual());
+            edao.insertarError(evo);
+            conector.desconectar();
+        }
     }
 
     @Override
     public ArrayList<ProductoVO> actualizarTabla() {
-          Conector c = new Conector();
+               Conector c = new Conector();
       ArrayList<ProductoVO> info = new ArrayList<>();
       
       try{
@@ -185,4 +207,7 @@ public class ProductoDAO implements ConsultarProducto {
       }
       return info;
     }
-}
+    }
+    
+
+   

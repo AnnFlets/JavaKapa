@@ -12,10 +12,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.ProductoDAO;
 import modelo.ProductoVO;
 import vista.FrmProducto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,7 +48,7 @@ public class ControladorProducto implements ActionListener, WindowListener, Mous
     this.vProducto.btnReporteProducto.addActionListener(this);
     this.vProducto.btnSalirProducto.addActionListener(this);
     this.vProducto.btnImagenAgregar.addActionListener(this);
-    
+    this.vProducto.btnLimpiarCampos.addActionListener(this);
     }
     
     private void mostrarProductos(){
@@ -84,69 +86,321 @@ public class ControladorProducto implements ActionListener, WindowListener, Mous
         this.vProducto.tblProductos.getColumnModel().getColumn(0).setMinWidth(0);       
         
 }
+
+    private void llenarCamposProductos() {
+        int numero = 0;
+        while (numero < 10) {
+            switch (numero) {
+                case 0:
+                    this.vProducto.txtIdProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 1:
+                    this.vProducto.txtDescripcionProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 2:
+                    this.vProducto.txtMarcaProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 3:
+                    this.vProducto.txtPresentacionProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 4:
+                    this.vProducto.txtCategoriaProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 5:
+                    this.vProducto.txtPrecioCompraProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 6:
+                    this.vProducto.txtPrecioVentaProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 7:
+                    this.vProducto.txtExistenciasProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 8:
+                    this.vProducto.txtImagen.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+                case 9:
+                    this.vProducto.txtProveedorProducto.setText(String.valueOf(this.vProducto.tblProductos.getValueAt(this.vProducto.tblProductos.getSelectedRow(), numero)));
+                    break;
+            }
+            numero++;
+        }
+    }    
+    
+    private boolean verificarProductoDuplicado(int opcion) {
+        
+        boolean banderaProducto = true;
+        if (opcion == 1) {
+            for (ProductoVO Producto : pddao.consultarProducto()) {
+                if (Producto.getIdProducto()==Integer.parseInt(this.vProducto.txtIdProducto.getText())) {
+                    banderaProducto = false;
+                    
+                    this.vProducto.jop_mensajes.showMessageDialog(null, "Ya existe un Producto con el mismo ID.",
+                            "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    if (!this.vProducto.txtIdProducto.getText().isEmpty()) {
+                        limpiarCampos();
+                    }
+                    break;
+                }
+            }
+        } else {
+            ArrayList<ProductoVO> Producto = pddao.consultarProducto();
+            for (int i = 0; i < Producto.size(); i++) {
+                if (Producto.get(i).getIdProducto() == Integer.parseInt(this.vProducto.txtIdProducto.getText())) 
+                {
+                    if (i != this.vProducto.tblProductos.getSelectedRow()) {
+                        banderaProducto = false;
+                        this.vProducto.jop_mensajes.showMessageDialog(null, "Ya existe un Producto con el mismo nombre y/o teléfono.",
+                                "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        limpiarCampos();
+                        break;
+                    }
+                }
+            }
+        }
+        return banderaProducto;
+    }
+    
+
+    private void registrarProducto() {
+        if (!this.vProducto.txtDescripcionProducto.getText().isEmpty()
+                && !this.vProducto.txtMarcaProducto.getText().isEmpty()
+                && !this.vProducto.txtPresentacionProducto.getText().isEmpty()
+                && !this.vProducto.txtCategoriaProducto.getText().isEmpty()
+                && !this.vProducto.txtPrecioCompraProducto.getText().isEmpty()
+                && !this.vProducto.txtPrecioVentaProducto.getText().isEmpty()
+                && !this.vProducto.txtExistenciasProducto.getText().isEmpty()
+                && !this.vProducto.txtImagen.getText().isEmpty()
+                && !this.vProducto.txtProveedorProducto.getText().isEmpty()) {
+
+//  
+            if (verificarProductoDuplicado(1)) {
+                this.pdvo.setDescripcionProducto(this.vProducto.txtDescripcionProducto.getText());
+                this.pdvo.setMarcaProducto(this.vProducto.txtMarcaProducto.getText());
+                this.pdvo.setPresentacionProducto(this.vProducto.txtPresentacionProducto.getText());
+                this.pdvo.setCategoriaProducto(this.vProducto.txtCategoriaProducto.getText());
+                this.pdvo.setPrecioCompraProducto(Double.parseDouble(this.vProducto.txtPrecioCompraProducto.getText()));
+                this.pdvo.setPrecioVentaProducto(Double.parseDouble(this.vProducto.txtPrecioVentaProducto.getText()));
+                this.pdvo.setExistenciaProducto(Integer.parseInt(this.vProducto.txtExistenciasProducto.getText()));
+                //this.pdvo.setImgProducto( this.vProducto.txtImagen.getText());
+                this.pdvo.setIdProveedor(Integer.parseInt(this.vProducto.txtProveedorProducto.getText()));
+                
+                
+                if (pddao.insertarProducto(pdvo) == true) {
+                    limpiarCampos();
+                    this.vProducto.jop_mensajes.showMessageDialog(null, "Producto registrado correctamente.",
+                            "Información", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    this.vProducto.jop_mensajes.showMessageDialog(null, "Error, datos no registrados.",
+                            "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } else {
+            this.vProducto.jop_mensajes.showMessageDialog(null, "Todos los campos deben de tener información según corresponda",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
+//
+
+    }    
+
+
+    private void modificarProducto() {
+        if (!this.vProducto.txtDescripcionProducto.getText().isEmpty()
+                && !this.vProducto.txtMarcaProducto.getText().isEmpty()
+                && !this.vProducto.txtPresentacionProducto.getText().isEmpty()
+                && !this.vProducto.txtCategoriaProducto.getText().isEmpty()
+                && !this.vProducto.txtPrecioCompraProducto.getText().isEmpty()
+                && !this.vProducto.txtPrecioVentaProducto.getText().isEmpty()
+                && !this.vProducto.txtExistenciasProducto.getText().isEmpty()
+                && !this.vProducto.txtImagen.getText().isEmpty()
+                && !this.vProducto.txtProveedorProducto.getText().isEmpty()) {
+        
+            if (verificarProductoDuplicado(2)) {
+                
+                this.pdvo.setIdProducto(Integer.parseInt(this.vProducto.txtIdProducto.getText()));
+                this.pdvo.setDescripcionProducto(this.vProducto.txtDescripcionProducto.getText());
+                this.pdvo.setMarcaProducto(this.vProducto.txtMarcaProducto.getText());
+                this.pdvo.setPresentacionProducto(this.vProducto.txtPresentacionProducto.getText());
+                this.pdvo.setCategoriaProducto(this.vProducto.txtCategoriaProducto.getText());
+                this.pdvo.setPrecioCompraProducto(Double.parseDouble(this.vProducto.txtPrecioCompraProducto.getText()));
+                this.pdvo.setPrecioVentaProducto(Double.parseDouble(this.vProducto.txtPrecioVentaProducto.getText()));
+                this.pdvo.setExistenciaProducto(Integer.parseInt(this.vProducto.txtExistenciasProducto.getText()));
+                //this.pdvo.setImgProducto( this.vProducto.txtImagen.getText());
+                this.pdvo.setIdProveedor(Integer.parseInt(this.vProducto.txtProveedorProducto.getText()));
+                
+                if (pddao.actualizarProducto(pdvo) == true) {
+                    limpiarCampos();
+                    this.vProducto.jop_mensajes.showMessageDialog(null, "Producto actualizado correctamente.",
+                            "Información", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    this.vProducto.jop_mensajes.showMessageDialog(null, "Error, no se pudo actualizar el producto.",
+                            "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } else {
+            this.vProducto.jop_mensajes.showMessageDialog(null, "No ha seleccionado ningún producto.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }    
+ 
+    private void eliminarProducto() {
+        if (!this.vProducto.txtIdProducto.getText().isEmpty()) {
+            this.pdvo.setIdProducto(Integer.parseInt(this.vProducto.txtIdProducto.getText()));
+            if (pddao.eliminarProducto(pdvo) == true) {
+                limpiarCampos();
+                this.vProducto.jop_mensajes.showMessageDialog(null, "Producto eliminado correctamente.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.vProducto.jop_mensajes.showMessageDialog(null, "Error, no se pudo eliminar el producto.",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            this.vProducto.jop_mensajes.showMessageDialog(null, "No ha seleccionado ningún producto.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void reporteProductos() {
+        pddao.reporteProducto();
+        pddao.jasperViewer.setDefaultCloseOperation(this.vProducto.DISPOSE_ON_CLOSE);
+        pddao.jasperViewer.setVisible(true);
+        banderaReporte = true;
+        
+    }
+    
+    private void limpiarCampos() {
+        this.vProducto.txtIdProducto.setText("");
+        this.vProducto.txtDescripcionProducto.setText("");
+        this.vProducto.txtMarcaProducto.setText("");
+        this.vProducto.txtPresentacionProducto.setText("");
+        this.vProducto.txtCategoriaProducto.setText("");
+        this.vProducto.txtPrecioCompraProducto.setText("");
+        this.vProducto.txtPrecioVentaProducto.setText("");
+        this.vProducto.txtExistenciasProducto.setText("");
+        this.vProducto.txtImagen.setText("");
+        this.vProducto.txtProveedorProducto.setText("");
+
+    }
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (e.getSource() == this.vProducto.btnLimpiarCampos) {
+    
+            limpiarCampos();     
+        } 
+ 
+        
+        if (e.getSource() == this.vProducto.btncrearProducto) {
+            registrarProducto();
+        }
+        
+        if (e.getSource() == this.vProducto.btnActualizarProducto) {
+            modificarProducto();
+        }
+        
+        if (e.getSource() == this.vProducto.btnEliminarProducto) {
+            eliminarProducto();
+        }
+        
+        if (e.getSource() == this.vProducto.btnReporteProducto) {
+            reporteProductos();
+        }
+        
+        if (e.getSource() == this.vProducto.btnSalirProducto ) {
+            limpiarCampos();
+            this.vProducto.dispose();
+            
+            if (!this.vProducto.txtIdProducto.getText().isEmpty()) {
+                limpiarCampos();
+            }
+            if (banderaReporte) {
+                pddao.jasperViewer.setVisible(false);
+            }
+        }
+        
+    //BOTON PARA AGREGAR LA IMAGEN
+        if (e.getSource() == this.vProducto.btnImagenAgregar ) {
+    
+            this.vProducto.jop_mensajes.showMessageDialog(null, "BOTON IMAGEN!!.",
+            "Advertencia", JOptionPane.WARNING_MESSAGE);   
+        }
+        
+       
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        limpiarCampos();
+        mostrarProductos();
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+                this.vProducto.jop_mensajes.showMessageDialog(null, "Se saldrá de Productos!!.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);    
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+            if (!this.vProducto.txtIdProducto.getText().isEmpty()) {
+            limpiarCampos();
+        }
+        if (banderaReporte) {
+            pddao.jasperViewer.setVisible(false);
+        }
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            if (e.getSource() == this.vProducto.tblProductos) {
+                if (e.getClickCount() == 2) {
+                   llenarCamposProductos();
+           }
+      }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
     
 }

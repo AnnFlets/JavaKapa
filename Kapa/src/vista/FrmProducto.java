@@ -30,16 +30,14 @@ public class FrmProducto extends javax.swing.JFrame {
         jfile_imagenes = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
         btnSalirProducto = new javax.swing.JButton();
         btncrearProducto = new javax.swing.JButton();
         btnActualizarProducto = new javax.swing.JButton();
         btnEliminarProducto = new javax.swing.JButton();
         btnReporteProducto = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblProductos = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
+        btnLimpiarCampos = new javax.swing.JButton();
+        btnImagenAgregar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtIdProducto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -58,14 +56,16 @@ public class FrmProducto extends javax.swing.JFrame {
         txtPresentacionProducto = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtProveedorProducto = new javax.swing.JTextField();
-        btnImagenAgregar = new javax.swing.JButton();
-        txt_imagen = new javax.swing.JTextField();
-        jSeparator12 = new javax.swing.JSeparator();
+        txtImagen = new javax.swing.JTextField();
         labelImagenProducto = new javax.swing.JLabel();
+        jSeparator12 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProductos = new javax.swing.JTable();
         lbFondoHorizontal = new javax.swing.JLabel();
+        lbfondoVertical = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrador de Productos");
@@ -86,48 +86,37 @@ public class FrmProducto extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 10, 350));
 
-        jSeparator4.setForeground(new java.awt.Color(204, 153, 255));
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 29, 0, 62));
-
         jSeparator8.setForeground(new java.awt.Color(204, 153, 255));
         jSeparator8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         getContentPane().add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 1010, 20));
 
         btnSalirProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_4salir.png"))); // NOI18N
         btnSalirProducto.setToolTipText("Regresar al menú principal");
-        getContentPane().add(btnSalirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 40, 30));
+        getContentPane().add(btnSalirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 40, 30));
 
         btncrearProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_1crear.png"))); // NOI18N
         btncrearProducto.setToolTipText("Crear (debe tener los campos llenos)");
-        getContentPane().add(btncrearProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 40, 30));
+        getContentPane().add(btncrearProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 40, 30));
 
         btnActualizarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_2actulizar.png"))); // NOI18N
         btnActualizarProducto.setToolTipText("Actualizar (debe tener algún registro seleccionado)");
-        getContentPane().add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 40, 30));
+        getContentPane().add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 40, 30));
 
         btnEliminarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_3eliminar.png"))); // NOI18N
         btnEliminarProducto.setToolTipText("Eliminar (debe tener algún registro seleccionado)");
-        getContentPane().add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 40, 30));
+        getContentPane().add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 40, 30));
 
         btnReporteProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_5reporte.png"))); // NOI18N
         btnReporteProducto.setToolTipText("Crear un reporte (Con los registros mostrados)");
-        getContentPane().add(btnReporteProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 40, 30));
+        getContentPane().add(btnReporteProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 40, 30));
 
-        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        btnLimpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_limpiarcampos.png"))); // NOI18N
+        btnLimpiarCampos.setToolTipText("Limpiar campos!!");
+        getContentPane().add(btnLimpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 40, 30));
 
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(tblProductos);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 990, 340));
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondoLogin.png"))); // NOI18N
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 156, 40, 350));
+        btnImagenAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_1crear.png"))); // NOI18N
+        btnImagenAgregar.setToolTipText("Agregar Imagen");
+        getContentPane().add(btnImagenAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 40, 30));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,6 +126,7 @@ public class FrmProducto extends javax.swing.JFrame {
 
         txtIdProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtIdProducto.setText("ID");
+        txtIdProducto.setEnabled(false);
         txtIdProducto.setName("txtIdProducto"); // NOI18N
         getContentPane().add(txtIdProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, -1));
 
@@ -155,43 +145,43 @@ public class FrmProducto extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Precio U. Venta");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 134, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 134, 20));
 
         txtPrecioVentaProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPrecioVentaProducto.setText("Precio U. Compra");
         txtPrecioVentaProducto.setName("txt_descripcion"); // NOI18N
-        getContentPane().add(txtPrecioVentaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        getContentPane().add(txtPrecioVentaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 130, 30));
 
         txtExistenciasProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtExistenciasProducto.setText("Existencias");
         txtExistenciasProducto.setName("txt_descripcion"); // NOI18N
-        getContentPane().add(txtExistenciasProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 90, -1));
+        getContentPane().add(txtExistenciasProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 90, 30));
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Existencias");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 90, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 90, -1));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Categoría");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 150, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 150, -1));
 
         txtCategoriaProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCategoriaProducto.setText("Cate.");
         txtCategoriaProducto.setName("txt_descripcion"); // NOI18N
-        getContentPane().add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 150, -1));
+        getContentPane().add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 150, 30));
 
         txtPrecioCompraProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPrecioCompraProducto.setText("Precio U. Compra");
         txtPrecioCompraProducto.setName("txt_descripcion"); // NOI18N
-        getContentPane().add(txtPrecioCompraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 130, 140, -1));
+        getContentPane().add(txtPrecioCompraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 140, 30));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Precio U. Compra");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 110, 140, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 140, -1));
 
         txtMarcaProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtMarcaProducto.setText("Marca");
@@ -216,35 +206,31 @@ public class FrmProducto extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Nombre Proveedor");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 150, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 150, -1));
 
         txtProveedorProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtProveedorProducto.setText("Nombre proveedor");
         txtProveedorProducto.setName("txt_descripcion"); // NOI18N
-        getContentPane().add(txtProveedorProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, 150, -1));
+        getContentPane().add(txtProveedorProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 150, 30));
 
-        btnImagenAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ic_java_1crear.png"))); // NOI18N
-        btnImagenAgregar.setToolTipText("Agregar Imagen");
-        getContentPane().add(btnImagenAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 40, 30));
-
-        txt_imagen.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txt_imagen.setText("Seleccione imagen");
-        txt_imagen.setName("txt_descripcion"); // NOI18N
-        txt_imagen.addActionListener(new java.awt.event.ActionListener() {
+        txtImagen.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtImagen.setText("Seleccione imagen");
+        txtImagen.setName("txt_descripcion"); // NOI18N
+        txtImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_imagenActionPerformed(evt);
+                txtImagenActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 210, 30));
-
-        jSeparator12.setForeground(new java.awt.Color(204, 153, 255));
-        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        getContentPane().add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 10, 140));
+        getContentPane().add(txtImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 210, 30));
 
         labelImagenProducto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         labelImagenProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelImagenProducto.setText("Imagen del Producto");
         getContentPane().add(labelImagenProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 60, 180, 90));
+
+        jSeparator12.setForeground(new java.awt.Color(204, 153, 255));
+        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 10, 140));
 
         jSeparator6.setForeground(new java.awt.Color(204, 153, 255));
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -258,15 +244,30 @@ public class FrmProducto extends javax.swing.JFrame {
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 10, 65));
 
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblProductos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 990, 340));
+
         lbFondoHorizontal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondoLogin.png"))); // NOI18N
         getContentPane().add(lbFondoHorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1070, 160));
+
+        lbfondoVertical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondoLogin.png"))); // NOI18N
+        getContentPane().add(lbfondoVertical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 156, 40, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_imagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_imagenActionPerformed
+    private void txtImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImagenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_imagenActionPerformed
+    }//GEN-LAST:event_txtImagenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,12 +311,12 @@ public class FrmProducto extends javax.swing.JFrame {
     public javax.swing.JButton btnActualizarProducto;
     public javax.swing.JButton btnEliminarProducto;
     public javax.swing.JButton btnImagenAgregar;
+    public javax.swing.JButton btnLimpiarCampos;
     public javax.swing.JButton btnReporteProducto;
     public javax.swing.JButton btnSalirProducto;
     public javax.swing.JButton btncrearProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -329,23 +330,23 @@ public class FrmProducto extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JFileChooser jfile_imagenes;
-    private javax.swing.JOptionPane jop_mensajes;
+    public javax.swing.JOptionPane jop_mensajes;
     private javax.swing.JLabel labelImagenProducto;
     private javax.swing.JLabel lbFondoHorizontal;
+    private javax.swing.JLabel lbfondoVertical;
     public javax.swing.JTable tblProductos;
     public javax.swing.JTextField txtCategoriaProducto;
     public javax.swing.JTextField txtDescripcionProducto;
     public javax.swing.JTextField txtExistenciasProducto;
     public javax.swing.JTextField txtIdProducto;
+    public javax.swing.JTextField txtImagen;
     public javax.swing.JTextField txtMarcaProducto;
     public javax.swing.JTextField txtPrecioCompraProducto;
     public javax.swing.JTextField txtPrecioVentaProducto;
     public javax.swing.JTextField txtPresentacionProducto;
     public javax.swing.JTextField txtProveedorProducto;
-    public javax.swing.JTextField txt_imagen;
     // End of variables declaration//GEN-END:variables
 }
