@@ -31,6 +31,7 @@ public class FrmVentas extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblSalirVentas = new javax.swing.JLabel();
         lblReportesVentas = new javax.swing.JLabel();
+        lblLimpiarVentas = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtNumeroVentas = new javax.swing.JTextField();
         cmbEstadoVentas = new javax.swing.JComboBox<>();
@@ -69,10 +70,16 @@ public class FrmVentas extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSalirVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salir.png"))); // NOI18N
+        lblSalirVentas.setToolTipText("Regresar al menú principal");
         jPanel2.add(lblSalirVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
 
         lblReportesVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporte.png"))); // NOI18N
-        jPanel2.add(lblReportesVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        lblReportesVentas.setToolTipText("Crear un reporte (Con los registros mostrados)");
+        jPanel2.add(lblReportesVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        lblLimpiarVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/limpiar.png"))); // NOI18N
+        lblLimpiarVentas.setToolTipText("Limpiar campos");
+        jPanel2.add(lblLimpiarVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 40, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 70, 580));
 
@@ -303,6 +310,7 @@ public class FrmVentas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JOptionPane jopMensajeVentas;
+    public javax.swing.JLabel lblLimpiarVentas;
     public javax.swing.JLabel lblReportesVentas;
     public javax.swing.JLabel lblSalirVentas;
     public javax.swing.JTable tblDetalleVentas;
