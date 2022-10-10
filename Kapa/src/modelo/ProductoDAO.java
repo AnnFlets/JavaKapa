@@ -2,8 +2,16 @@ package modelo;
 
 import conexion.Conector;
 import extras.Extras;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -21,10 +29,13 @@ public class ProductoDAO implements ConsultarProducto {
     @Override
     public boolean insertarProducto(ProductoVO pvo) {
       Conector c = new Conector();
-        
+      
+        FileInputStream fis = null;
+        PreparedStatement ps = null;
         try{
         
         c.conectar();
+        
         
         String query= "INSERT INTO producto (descripcion_producto, marca_producto, presentacion_producto, "+
         "categoria_producto, precio_compra_producto, precio_venta_producto, existencia_producto, "+
@@ -56,6 +67,7 @@ public class ProductoDAO implements ConsultarProducto {
     public ArrayList<ProductoVO> consultarProducto() {
      Conector conector = new Conector();
         ArrayList<ProductoVO> informacionProducto = new ArrayList<>();
+        
         try {
             conector.conectar();
             String query = "SELECT "
@@ -72,7 +84,23 @@ public class ProductoDAO implements ConsultarProducto {
                     + "FROM dbkapa.producto p";
             ResultSet resultSet = conector.consultaDatos(query);
             while (resultSet.next()) {
+               
                 ProductoVO pvo = new ProductoVO();
+                
+/*                Blob blob = resultSet.getBlob("img_producto");
+                String nombre = resultSet.getObject("imagen_"+"id_producto").toString();
+                byte[] data = blob.getBytes(1, (int)blob.length());
+                BufferedImage img = null;
+                
+                try{
+                    img = ImageIO.read(new ByteArrayInputStream(data));
+                } catch(Exception e){
+                     evo.setDescripcionError("[Consultar-Producto IMAGEN]: " + e.getMessage());
+                     evo.setFechaError(extras.devolverFechaActual());
+                     edao.insertarError(evo);
+                     conector.desconectar();
+                } */
+                
                 pvo.setIdProducto(resultSet.getInt(1));
                 pvo.setDescripcionProducto(resultSet.getString(2));
                 pvo.setMarcaProducto(resultSet.getString(3));
@@ -81,6 +109,7 @@ public class ProductoDAO implements ConsultarProducto {
                 pvo.setPrecioCompraProducto(resultSet.getDouble(6));
                 pvo.setPrecioVentaProducto(resultSet.getDouble(7));
                 pvo.setExistenciaProducto(resultSet.getInt(8));
+                //pvo.setImgProducto(img);
                 pvo.setImgProducto(resultSet.getBlob(9));
                 pvo.setIdProveedor(resultSet.getInt(10));
                 informacionProducto.add(pvo);

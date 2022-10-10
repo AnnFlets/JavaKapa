@@ -6,18 +6,34 @@
 package controlador;
 
 import extras.Extras;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import static java.util.Locale.filter;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import modelo.ProductoDAO;
 import modelo.ProductoVO;
 import vista.FrmProducto;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -49,6 +65,8 @@ public class ControladorProducto implements ActionListener, WindowListener, Mous
     this.vProducto.btnSalirProducto.addActionListener(this);
     this.vProducto.btnImagenAgregar.addActionListener(this);
     this.vProducto.btnLimpiarCampos.addActionListener(this);
+    this.vProducto.tblProductos.addMouseListener(this);
+    
     }
     
     private void mostrarProductos(){
@@ -279,9 +297,10 @@ public class ControladorProducto implements ActionListener, WindowListener, Mous
         this.vProducto.txtExistenciasProducto.setText("");
         this.vProducto.txtImagen.setText("");
         this.vProducto.txtProveedorProducto.setText("");
-
+        this.vProducto.labelImagenProducto.setIcon(null);
     }
-    
+ 
+   
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -325,6 +344,8 @@ public class ControladorProducto implements ActionListener, WindowListener, Mous
     
             this.vProducto.jop_mensajes.showMessageDialog(null, "BOTON IMAGEN!!.",
             "Advertencia", JOptionPane.WARNING_MESSAGE);   
+            
+            seleccionarImagen();
         }
         
        
@@ -402,5 +423,35 @@ public class ControladorProducto implements ActionListener, WindowListener, Mous
     public void mouseExited(MouseEvent e) {
 
     }
+
+    private void seleccionarImagen() {
+        
+        final JFileChooser elegirImagen = new JFileChooser(".");
+        
+       FileFilter filtro = new FileNameExtensionFilter("Archivos de Imagen (.png)", "png", "jpeg"); 
+           
+        elegirImagen.addChoosableFileFilter(filtro);
+        elegirImagen.setFileFilter(filtro);
+        
+        elegirImagen.setMultiSelectionEnabled(false);
+        
+        int o = elegirImagen.showOpenDialog(this.vProducto);
+        
+        if(o == JFileChooser.APPROVE_OPTION){
+            String ruta = elegirImagen.getSelectedFile().getAbsolutePath();
+            String nombre = elegirImagen.getSelectedFile().getName();
+            vProducto.txtImagen.setText(nombre);
+            
+            Image preview = Toolkit.getDefaultToolkit().getImage(ruta);
+
+            if(preview != null){
+                vProducto.labelImagenProducto.setText("");
+                ImageIcon icon = new ImageIcon(preview.getScaledInstance(vProducto.labelImagenProducto.getWidth(), vProducto.labelImagenProducto.getHeight(), Image.SCALE_DEFAULT));
+                vProducto.labelImagenProducto.setIcon(icon);
+            }
+        }
+    
+
+            }
     
 }

@@ -332,9 +332,9 @@ public class FrmProducto extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JFileChooser jfile_imagenes;
+    public javax.swing.JFileChooser jfile_imagenes;
     public javax.swing.JOptionPane jop_mensajes;
-    private javax.swing.JLabel labelImagenProducto;
+    public javax.swing.JLabel labelImagenProducto;
     private javax.swing.JLabel lbFondoHorizontal;
     private javax.swing.JLabel lbfondoVertical;
     public javax.swing.JTable tblProductos;
